@@ -76,4 +76,11 @@ public class UserService {
         UserResponse.LoginOutDTO loginOutDTO = new UserResponse.LoginOutDTO(findUser.getId(), findUser.getRole());
         return loginOutDTO;
     }
+
+    public User findById(Long userId){
+        User userPS = userRepository.findById(userId)
+                .orElseThrow(()->new Exception400("id", "해당 유저가 존재하지 않습니다."));
+
+        return userPS;
+    }
 }
