@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import shop.mookmall.com.core.util.MyRatingUtils;
 import shop.mookmall.com.model.product.Product;
 import shop.mookmall.com.model.product.ProductRepository;
+import shop.mookmall.com.model.product.ProductType;
 import shop.mookmall.com.model.rating.Rating;
 import shop.mookmall.com.model.rating.RatingRepository;
 import shop.mookmall.com.model.user.User;
@@ -44,15 +45,41 @@ public class DataInit extends DummyEntity{
                     newProduct("신선 토마토"
                             , 11700
                             , "신선농장"
-                            , 9.0f
+                            , 0f
+                            , ProductType.PRODUCT_TYPE_FOOD
                             , "https://cdn.pixabay.com/photo/2016/12/26/17/28/spaghetti-1932466_1280.jpg"));
+
+            productRepository.save(
+                    newProduct("나침반"
+                            , 20700
+                            , "Nachdem"
+                            , 0f
+                            , ProductType.PRODUCT_TYPE_LIFE
+                            , "https://cdn.pixabay.com/photo/2023/10/18/15/43/compass-8324516_1280.jpg"));
+
+            productRepository.save(
+                    newProduct("고대 미술"
+                            , 41700
+                            , "LoveBooks"
+                            , 0f
+                            , ProductType.PRODUCT_TYPE_BOOK
+                            , "https://cdn.pixabay.com/photo/2022/12/01/00/13/antique-7627999_1280.jpg"));
+
+            productRepository.save(
+                    newProduct("편안 침대"
+                            , 401700
+                            , "Base"
+                            , 0f
+                            , ProductType.PRODUCT_TYPE_FURNITURE
+                            , "https://cdn.pixabay.com/photo/2021/11/08/00/30/bedroom-6778193_640.jpg"));
 
             for (int i = 0; i < 30; i++) {
                 productRepository.save(
                         newProduct("최신 사과폰"
                                 , 1700000
                                 , "사과"
-                                , 8.1f
+                                , 0f
+                                , ProductType.PRODUCT_TYPE_ELECTRONICS
                                 , "https://cdn.pixabay.com/photo/2014/08/05/10/27/iphone-410311_960_720.jpg"));
             }
 

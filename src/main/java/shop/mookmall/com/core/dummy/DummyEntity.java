@@ -2,6 +2,7 @@ package shop.mookmall.com.core.dummy;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import shop.mookmall.com.model.product.Product;
+import shop.mookmall.com.model.product.ProductType;
 import shop.mookmall.com.model.rating.Rating;
 import shop.mookmall.com.model.user.User;
 import java.time.LocalDate;
@@ -19,14 +20,15 @@ public class DummyEntity {
                 .build();
     }
 
-    public Product newProduct(String productname, int price, String manufacturer, float rating, String photo){
+    public Product newProduct(String productname, int price, String manufacturer, float rating, ProductType productType, String photo){
 
         return Product.builder()
-                .productname(productname)
+                .productName(productname)
                 .price(price)
                 .manufacturer(manufacturer)
                 .rating(rating)
                 .photo(photo)
+                .productType(productType)
                 .createdAt(LocalDateTime.now())
                 .build();
     }

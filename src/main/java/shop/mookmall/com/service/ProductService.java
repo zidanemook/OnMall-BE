@@ -11,6 +11,7 @@ import shop.mookmall.com.dto.PageDTO;
 import shop.mookmall.com.dto.product.ProductResponse;
 import shop.mookmall.com.model.product.Product;
 import shop.mookmall.com.model.product.ProductRepository;
+import shop.mookmall.com.model.product.ProductType;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,13 +30,33 @@ public class ProductService {
         List<ProductResponse.ProductDTO> productDTOList = productsPage.getContent().stream()
                 .map(product -> new ProductResponse.ProductDTO(
                                 product.getId(),
-                                product.getProductname(),
+                                product.getProductName(),
                                 product.getPrice(),
                                 product.getManufacturer(),
                                 product.getRating(),
                                 product.getPhoto(),
+                                product.getProductType().toString(),
                                 product.getCreatedAt().toString()))
                         .collect(Collectors.toList());
+
+        return new PageDTO<>(productDTOList, productsPage);
+    }
+
+    public PageDTO<ProductResponse.ProductDTO, Product> getFood(int page, int size){
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Order.asc("productName")));
+        Page<Product> productsPage = productRepository.findByProductTypeOrderByProductNameAsc(ProductType.PRODUCT_TYPE_FOOD, pageable);
+
+        List<ProductResponse.ProductDTO> productDTOList = productsPage.getContent().stream()
+                .map(product -> new ProductResponse.ProductDTO(
+                        product.getId(),
+                        product.getProductName(),
+                        product.getPrice(),
+                        product.getManufacturer(),
+                        product.getRating(),
+                        product.getPhoto(),
+                        product.getProductType().toString(),
+                        product.getCreatedAt().toString()))
+                .collect(Collectors.toList());
 
         return new PageDTO<>(productDTOList, productsPage);
     }
@@ -48,11 +69,12 @@ public class ProductService {
             Product product = opProduct.get();
 
             ProductResponse.ProductDTO productDTO = new ProductResponse.ProductDTO(product.getId(),
-                    product.getProductname(),
+                    product.getProductName(),
                     product.getPrice(),
                     product.getManufacturer(),
                     product.getRating(),
                     product.getPhoto(),
+                    product.getProductType().toString(),
                     product.getCreatedAt().toString());
 
             return productDTO;

@@ -17,15 +17,18 @@ public class ProductResponse {
         private String manufacturer;
         private float rating;
         private String photo;
+
+        private String productType;
         private String createdAt;
 
-        public ProductDTO(Long id, String productname, int price, String manufacturer, float rating, String photo, String createdAt){
+        public ProductDTO(Long id, String productname, int price, String manufacturer, float rating, String photo, String productType, String createdAt){
             this.id = id;
             this.productname = productname;
             this.price = price;
             this.manufacturer = manufacturer;
             this.rating = rating;
             this.photo = photo;
+            this.productType = productType;
             this.createdAt = createdAt;
         }
     }

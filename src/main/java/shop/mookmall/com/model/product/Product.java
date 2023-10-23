@@ -21,7 +21,7 @@ public class Product {
     private Long id;
 
     @Column(nullable = false, length = 128)
-    private String productname;
+    private String productName;
 
     @Min(value = 1, message = "Price must be equal or greater than 1")
     @Max(value = 2000000000, message = "Price must be equal or less than 2,000,000,000")
@@ -37,6 +37,10 @@ public class Product {
 
     @Column(nullable = false, length = 255)
     private String photo;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ProductType productType;
 
     @Column(nullable = false)
     private LocalDateTime createdAt;
