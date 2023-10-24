@@ -17,11 +17,11 @@ public class ProductResponse {
         private String manufacturer;
         private float rating;
         private String photo;
-
         private String productType;
+        private int commentCount;
         private String createdAt;
 
-        public ProductDTO(Long id, String productname, int price, String manufacturer, float rating, String photo, String productType, String createdAt){
+        public ProductDTO(Long id, String productname, int price, String manufacturer, float rating, String photo, String productType, int commentCount, String createdAt){
             this.id = id;
             this.productname = productname;
             this.price = price;
@@ -29,6 +29,7 @@ public class ProductResponse {
             this.rating = rating;
             this.photo = photo;
             this.productType = productType;
+            this.commentCount = commentCount;
             this.createdAt = createdAt;
         }
     }

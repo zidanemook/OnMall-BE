@@ -31,9 +31,12 @@ public class Product {
     @Column(nullable = false, length = 128)
     private String manufacturer;
 
+    //평균평점
     @Min(0)
     @Max(10)
     private float rating;
+
+    private int commentCount;
 
     @Column(nullable = false, length = 255)
     private String photo;
