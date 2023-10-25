@@ -3,13 +3,11 @@ package shop.mookmall.com.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import shop.mookmall.com.core.exception.Exception404;
 import shop.mookmall.com.dto.PageDTO;
 import shop.mookmall.com.dto.ResponseDTO;
-import shop.mookmall.com.dto.product.ProductRequest;
 import shop.mookmall.com.dto.product.ProductResponse;
 import shop.mookmall.com.model.product.OrderType;
 import shop.mookmall.com.model.product.Product;
@@ -17,7 +15,6 @@ import shop.mookmall.com.model.product.ProductType;
 import shop.mookmall.com.model.product.SortOrder;
 import shop.mookmall.com.service.ProductService;
 
-import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController

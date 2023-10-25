@@ -23,7 +23,6 @@ public class ProductService {
 
     public PageDTO<ProductResponse.ProductDTO, Product> getList(int page, int size, ProductType productType, OrderType orderType, SortOrder sortOrder){
 
-
         Sort sort;
         switch(orderType) {
             case CREATED_AT:
@@ -34,6 +33,9 @@ public class ProductService {
                 break;
             case RATING:
                 sort = Sort.by(sortOrder == SortOrder.ASCENDING ? Sort.Order.asc("rating") : Sort.Order.desc("rating"));
+                break;
+            case PRICE:
+                sort = Sort.by(sortOrder == SortOrder.ASCENDING ? Sort.Order.asc("price") : Sort.Order.desc("price"));
                 break;
             default:
                 throw new IllegalArgumentException("Invalid OrderType");
@@ -47,8 +49,6 @@ public class ProductService {
         }else{
             productsPage = productRepository.findByProductType(productType, pageable);
         }
-
-
 
         List<ProductResponse.ProductDTO> productDTOList = productsPage.getContent().stream()
                 .map(product -> new ProductResponse.ProductDTO(
