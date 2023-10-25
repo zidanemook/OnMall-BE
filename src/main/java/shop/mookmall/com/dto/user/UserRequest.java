@@ -17,7 +17,8 @@ public class UserRequest {
         @NotEmpty
         private String email;
         @NotEmpty
-        @Pattern(regexp = "^[a-zA-Z0-9]{2,128}$", message = "영문/숫자 2~128자 이내로 작성해주세요")
+        //@Pattern(regexp = "^[a-zA-Z0-9]{2,128}$", message = "영문/숫자 2~128자 이내로 작성해주세요")
+        @Pattern(regexp = "^[0-9]{2,128}$", message = "숫자 2~128자 이내로 작성해주세요")
         private String password;
     }
 
