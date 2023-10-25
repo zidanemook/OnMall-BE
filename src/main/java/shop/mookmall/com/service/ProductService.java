@@ -21,7 +21,11 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public PageDTO<ProductResponse.ProductDTO, Product> getList(int page, int size, ProductType productType, OrderType orderType, SortOrder sortOrder){
+    public PageDTO<ProductResponse.ProductDTO, Product> getList(int page, int size,
+                                                                ProductType productType,
+                                                                OrderType orderType,
+                                                                SortOrder sortOrder,
+                                                                String keyword){
 
         Sort sort;
         switch(orderType) {
@@ -44,51 +48,20 @@ public class ProductService {
         Pageable pageable = PageRequest.of(page, size, sort);
         Page<Product> productsPage = null;
 
-        if(productType == ProductType.PRODUCT_TYPE_ALL){
-            productsPage = productRepository.findAll(pageable);
-        }else{
-            productsPage = productRepository.findByProductType(productType, pageable);
+        if(keyword.length() > 0){
+            if(productType == ProductType.PRODUCT_TYPE_ALL){
+                productsPage = productRepository.findByProductNameContaining(keyword, pageable);
+            }else{
+                productsPage = productRepository.findByProductNameContainingAndProductType(keyword, productType, pageable);
+            }
         }
-
-        List<ProductResponse.ProductDTO> productDTOList = productsPage.getContent().stream()
-                .map(product -> new ProductResponse.ProductDTO(
-                        product.getId(),
-                        product.getProductName(),
-                        product.getPrice(),
-                        product.getManufacturer(),
-                        product.getRating(),
-                        product.getPhoto(),
-                        product.getProductType().toString(),
-                        product.getCommentCount(),
-                        product.getCreatedAt().toString()))
-                .collect(Collectors.toList());
-
-        return new PageDTO<>(productDTOList, productsPage);
-    }
-
-    public PageDTO<ProductResponse.ProductDTO, Product> getRecent(int page, int size){
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Order.desc("createdAt")));
-        Page<Product> productsPage = productRepository.findAllByOrderByCreatedAtDesc(pageable);
-
-        List<ProductResponse.ProductDTO> productDTOList = productsPage.getContent().stream()
-                .map(product -> new ProductResponse.ProductDTO(
-                                product.getId(),
-                                product.getProductName(),
-                                product.getPrice(),
-                                product.getManufacturer(),
-                                product.getRating(),
-                                product.getPhoto(),
-                                product.getProductType().toString(),
-                                product.getCommentCount(),
-                                product.getCreatedAt().toString()))
-                        .collect(Collectors.toList());
-
-        return new PageDTO<>(productDTOList, productsPage);
-    }
-
-    public PageDTO<ProductResponse.ProductDTO, Product> getFood(int page, int size){
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Order.asc("productName")));
-        Page<Product> productsPage = productRepository.findByProductTypeOrderByProductNameAsc(ProductType.PRODUCT_TYPE_FOOD, pageable);
+        else{
+            if(productType == ProductType.PRODUCT_TYPE_ALL){
+                productsPage = productRepository.findAll(pageable);
+            }else{
+                productsPage = productRepository.findByProductType(productType, pageable);
+            }
+        }
 
         List<ProductResponse.ProductDTO> productDTOList = productsPage.getContent().stream()
                 .map(product -> new ProductResponse.ProductDTO(

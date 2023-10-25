@@ -110,8 +110,8 @@ public class RefreshService {
         List<RefreshTokenEntity> expiredTokens = tokenRepository.findByStatus(TokenStatus.EXPIRED);
         List<RefreshTokenEntity> revokedTokens = tokenRepository.findByStatus(TokenStatus.REVOKED);
 
-        tokenRepository.deleteInBatch(expiredTokens);
-        tokenRepository.deleteInBatch(revokedTokens);
+        tokenRepository.deleteAllInBatch(expiredTokens);
+        tokenRepository.deleteAllInBatch(revokedTokens);
     }
 }
 

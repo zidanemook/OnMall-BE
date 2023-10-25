@@ -15,6 +15,9 @@ import shop.mookmall.com.model.product.ProductType;
 import shop.mookmall.com.model.product.SortOrder;
 import shop.mookmall.com.service.ProductService;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 
 @RequiredArgsConstructor
 @RestController
@@ -25,9 +28,10 @@ public class ProductController {
     @GetMapping("/product")
     public ResponseEntity<?> getProductList(@RequestParam(defaultValue = "0") int page,
                                             @RequestParam(defaultValue = "20") int size,
-                                            @RequestParam(required = true) String productType,
-                                            @RequestParam(required = true) String orderType,
-                                            @RequestParam(required = true) String sortOrder){
+                                            @RequestParam @NotBlank String productType,
+                                            @RequestParam @NotBlank String orderType,
+                                            @RequestParam @NotBlank String sortOrder,
+                                            @RequestParam(required = true) String keyword){
 
 
         ProductType productTypeEnum = ProductType.valueOf(productType);
@@ -40,24 +44,9 @@ public class ProductController {
                 size,
                 productTypeEnum,
                 orderTypeEnum,
-                sortOrderEnum);
+                sortOrderEnum,
+                keyword);
 
-        ResponseDTO<PageDTO<ProductResponse.ProductDTO, Product>> responseDTO = new ResponseDTO<>(pageDTO);
-        return ResponseEntity.ok(responseDTO);
-    }
-
-    @GetMapping("/product/recent")
-    public ResponseEntity<?> getRecentList(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size){
-
-        PageDTO<ProductResponse.ProductDTO, Product> pageDTO = productService.getRecent(page, size);
-        ResponseDTO<PageDTO<ProductResponse.ProductDTO, Product>> responseDTO = new ResponseDTO<>(pageDTO);
-        return ResponseEntity.ok(responseDTO);
-    }
-
-    @GetMapping("/product/food")
-    public ResponseEntity<?> getFoodList(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size){
-
-        PageDTO<ProductResponse.ProductDTO, Product> pageDTO = productService.getFood(page, size);
         ResponseDTO<PageDTO<ProductResponse.ProductDTO, Product>> responseDTO = new ResponseDTO<>(pageDTO);
         return ResponseEntity.ok(responseDTO);
     }

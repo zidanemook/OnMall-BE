@@ -8,7 +8,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     Page<Product> findByProductType(ProductType productType, Pageable pageable);
 
-    Page<Product> findAllByOrderByCreatedAtDesc(Pageable pageable);
-
-    Page<Product> findByProductTypeOrderByProductNameAsc(ProductType productType, Pageable pageable);
+    Page<Product> findByProductNameContaining(String keyword, Pageable pageable);
+    Page<Product> findByProductNameContainingAndProductType(String keyword, ProductType productType, Pageable pageable);
 }

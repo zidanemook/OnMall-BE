@@ -1,5 +1,4 @@
 package shop.mookmall.com.model.product;
-
 import lombok.*;
 
 import javax.persistence.*;
