@@ -48,7 +48,8 @@ public class RatingService {
                 .build());
     }
 
-    public Rating getRating(Product product, User user){
-        return ratingRepository.findByProductAndUser(product, user).orElseThrow(()->new Exception400("id", "해당 리뷰가 존재하지 않습니다."));
+    public Optional<Rating> getRating(Product product, User user){
+        return ratingRepository.findByProductAndUser(product, user);
     }
+
 }

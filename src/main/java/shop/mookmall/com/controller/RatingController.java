@@ -52,9 +52,15 @@ public class RatingController {
     public ResponseEntity<?> getCurrentRating(@AuthenticationPrincipal MyUserDetails myUserDetails,
                                               @RequestParam(required = true) Long productId){
 
-        Rating rating = ratingService.getRating(productService.findProductById(productId), myUserDetails.getUser());
+        Optional<Rating> optionalRating = ratingService.getRating(productService.findProductById(productId), myUserDetails.getUser());
 
-        ResponseDTO<?> responseDTO = new ResponseDTO<>(rating.getScore());
-        return ResponseEntity.ok(responseDTO);
+        if (optionalRating.isPresent()) {
+            ResponseDTO<?> responseDTO = new ResponseDTO<>(optionalRating.get().getScore());
+            return ResponseEntity.ok(responseDTO);
+        } else {
+            // 리뷰가 존재하지 않을 경우 기본 값을 반환합니다.
+            ResponseDTO<?> responseDTO = new ResponseDTO<>(0);
+            return ResponseEntity.ok(responseDTO);
+        }
     }
 }
